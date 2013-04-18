@@ -1,0 +1,467 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass";
+@import "compass/reset";
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+$darkblue: rgb(33, 133, 197);
+$gray: rgb(62, 69, 76);
+$salmon: rgb(255, 127, 102);
+$lightblue: rgb(126, 206, 253);
+
+::selection {
+	background-color: $salmon;
+	color: #fff;
+}
+
+.top_bar {
+	width: 100%;
+	height: 20px;
+	background-color: $darkblue;
+	position: absolute;
+	top: -20px;
+	p {
+		text-align: center;
+		width: 400px;
+		margin: auto auto;
+		color: #fff;
+		font-weight: 900;
+		font-size: 300%;
+		overflow: hidden;
+		position: relative;
+		top: -10px;
+	}
+}
+
+.container {
+	margin: auto auto;
+	width: 400px;
+}
+
+.container h6 {
+	font-size: 20px;
+	font-weight: 700;
+	text-align: center;
+	position: relative;
+	top: -32px;
+	z-index: -1;
+	color: rgb(255, 255, 255);
+}
+
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  font-size: 14px;
+}
+
+hr {
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #ffffff;
+}
+
+
+/*@-webkit-keyframes flip {
+  0% {
+    -webkit-transform: rotateX(90deg);
+  }
+
+  90% {
+    -webkit-transform: rotateX(-4deg);
+  }
+  100% {
+    -webkit-transform: rotateX(0deg);
+  }
+}*/
+
+.menu_button {
+	@include opacity(0);
+	border: none;
+	cursor: pointer;
+	position: relative;
+	top: 12.5em;
+	left: -17px;
+	.circle {
+		width: 25px;
+		height: 25px;
+		background: $gray;
+		@include border-radius(12.5px);
+		color: #fff;
+		text-align: center;
+		line-height: 25px;
+	}
+}
+
+#menu {
+	display: none;
+	@include opacity(0);
+	position: absolute;
+	top: 205px;
+	left: 50%;
+	font-weight: 300;
+	font-size: 350%;
+	margin-left: -460px;
+	letter-spacing: -0.05em;
+	li {
+		cursor: pointer;
+		&:hover { color: $darkblue; }
+		a {
+			text-decoration: none;
+			&:hover {
+				text-decoration: none;
+				color: $darkblue;
+				span {
+					color: inherit;
+					position: relative;
+					left: 10px;
+					@include single-transition(all, .2s, ease-out);
+				}
+			}
+		}
+	}
+	span {
+		text-decoration: none;
+		position: relative;
+		left: 0;
+		color: inherit;
+		text-transform: uppercase;
+		@include single-transition(all, .2s, ease-out);
+	}
+}
+
+.logo {
+	@include transform( rotate3d(1,0,0,90deg) );
+	display: inline-block;
+	position: relative;
+	//// These properties are absolute
+	width: 100px;
+	height: 100px;
+	font-size: 14px;
+
+
+	.circle {
+		width: 100%;
+		height: 100%;
+		background: $darkblue;
+		@include border-radius(50px);
+		position: relative;
+
+		/* Cleaner, but slightly less support: use "50%" as value */
+
+		@include transform( rotate3d(1,0,0,90deg) );
+		// -webkit-transition: translate3d(1,0,0);
+		// -webkit-transform-style: preserve-3d;
+//		-webkit-backface-visibility: hidden;
+		//-webkit-transform: rotateX(90deg);
+		/*  -webkit-transform-origin: 75% 50%;
+		-webkit-animation: flip 800ms 800ms forwards;
+		*/
+	}
+
+	span {
+		@include transform( translateZ(1000px) );
+		font-size: 667%;
+		font-weight: 700;
+		color: #fff;
+		line-height: 100%;
+		letter-spacing: -0.1em;
+		position: absolute;
+		top: 27%;
+		left: 16%;
+
+	}
+}
+
+#title {
+	@include opacity(0);
+	font-weight: 100;
+	color: $gray;
+	display: inline-block;
+	line-height: 100px;
+	font-size: 450%;
+	letter-spacing: -.1em;
+	margin-left: 1.5%;
+	position: relative;
+	top: -20px;
+	span {
+	  color: $darkblue;
+	}
+}
+
+header {
+	width: 300px;
+	margin: 0 auto;
+	height: 90px;
+}
+
+#intro {
+	width: 300px;
+	margin: 40px auto;
+	font-weight: 300;
+	div {
+		@include opacity(0);
+	}
+	.line1 {
+		font-size: 571.428%;
+		letter-spacing: -0.09em;
+		line-height: 1em;
+	}
+	.line2 {
+		font-size: 550%;
+		letter-spacing: -0.07em;
+		line-height: 0.7em;
+	}
+	.line3 {
+		font-size: 428.571%;
+		letter-spacing: -0.09em;
+		line-height: 1.3em;
+	}
+	.line4 {
+		font-size: 305%;
+		letter-spacing: -0.08em;
+		line-height: 0.6em;
+		span {
+			line-height: 0.7em;
+		}
+		#clocks {
+			cursor: pointer;
+		}
+	}
+}
+
+#pages {
+	margin-top: -20px;
+
+	.top_row {
+		width: 100%;
+		height: 100px;
+	}
+
+	.logo_container {
+		float: left;
+		width: 25%;
+		height: 100%;
+		position: relative;
+	}
+
+	.logo {
+		width: 50px;
+		height: 50px;
+		font-size: 7px;
+		position: absolute;
+		top: 25%;
+		left: 25%;
+	}
+
+	.nav {
+		float: left;
+		width: 75%;
+		height: 100%;
+		text-transform: uppercase;
+		line-height: 100px;
+		text-align: center;
+		font-size: 1.14em;
+		div {
+			width: 33.33333%;
+			height: 100%;
+			float: left;
+			a:hover {
+				text-decoration: none;
+				span { text-decoration: none; }
+			}
+			span {
+				padding: 5px 13px;
+				cursor: pointer;
+				background-color: #fff;
+				@include single-transition(all, .3s, linear);
+			}
+			&.active {
+				&.work span { background-color: $lightblue; }
+				&.about span { background-color: $gray; }
+				&.blog span { background-color: $darkblue; }
+				span {
+					color: #fff;
+					@include single-transition(all, .3s, linear);
+				}
+			}
+		}
+	}
+}
+
+#about {
+	@include clearfix;
+	.copy {
+		text-align: justify;
+		width: 75%;
+		height: 400px;
+		float: left;
+		padding-left: 5%;
+		font-size: 1.428em;
+		font-weight: 300;
+		line-height: 1.35em;
+		letter-spacing: -0.05em;
+		p {
+			margin-bottom: 1em;
+			text-indent: 40%;
+		}
+		.email {
+			display: block;
+			width: 100%;
+			text-align: right;
+			a {
+				color: $gray;
+			}
+		}
+	}
+	.sidebar {
+		height: 400px;
+		width: 25%;
+		float: left;
+	}
+	.lightblue {
+		height: 25%;
+		width: 100%;
+		float: left;
+		div {
+			height: 50%;
+			width: 50%;
+			margin: 25%;
+			background-color: $lightblue;
+		}
+	}
+	.headshot {
+		height: 25%;
+		width: 100%;
+		float: left;
+		background: url('../img/headshot.jpg') 0 0 no-repeat;
+	}
+	.darkblue {
+		height: 25%;
+		width: 100%;
+		float: left;
+		div {
+			height: 50%;
+			width: 50%;
+			margin: 25%;
+			background-color: $darkblue;
+		}
+	}
+	.gray {
+		height: 25%;
+		width: 100%;
+		float: left;
+		div {
+			height: 50%;
+			width: 50%;
+			margin: 25%;
+			background-color: $gray;
+		}
+	}
+}
+
+#work {
+	width: 100%;
+	display: table;
+	.project_row {
+		//display: table-row;
+		cursor: pointer;
+		@include single-transition(all, .5s, cubic-bezier(0.23, 1, 0.32, 1));
+		&:hover {
+			@include scale(1.03, 1.03);
+		}
+	}
+	.project {
+		width: 100%;
+		font-size: 1em;
+		margin-bottom: 1em;
+		&.style1 .info { padding: 5% 0 5% 5%; }
+		&.style2 .info { padding: 5% 5% 5% 0; }
+	}
+
+	.info {
+		width: 50%;
+		height: 200px;
+		display: table-cell;
+		vertical-align: middle;
+		h2 {
+			text-transform: uppercase;
+			font-weight: 700;
+			font-size: 2em;
+			text-align: center;
+		}
+		p {
+			line-height: 1.3em;
+		}
+	}
+	.screenshot {
+		display: table-cell;
+		width: 200px;
+		img {
+			max-width: 100%;
+			width: 100%;
+		}
+	}
+	.body {
+		height: 0;
+		overflow: hidden;
+		p {
+			margin: .5em 0;
+			line-height: 1.5em;
+			font-size: 1.2em;
+		}
+
+	}
+	.project.active {
+		.body {
+			height: 400px;
+		}
+	}
+
+}
+
+/* apply a natural box layout model to all elements */
+* {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+body * {
+	font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color: $gray;
+}
+
+p {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+}
+
+#pages {
+	a {
+	  color: $darkblue;
+	  text-decoration: none;
+	  @include single-transition(all, .1s, linear);
+
+	}
+
+	a:hover {
+	  color: $lightblue;
+	  text-decoration: underline;
+	  @include single-transition(all, .1s, linear);
+
+	}
+
+	a:active {
+		color: $salmon;
+		// @include single-transition(all, .1s, linear);
+	}
+}
