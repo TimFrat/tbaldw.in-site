@@ -1,0 +1,649 @@
+@import "compass";
+@import "compass/reset";
+
+@font-face {
+    font-family: LondonBetween;
+    src: url(../fonts/LondonBetween.ttf);
+}
+
+@font-face {
+    font-family: LondonMM;
+    src: url(../fonts/LondonMM.ttf);
+}
+
+@font-face {
+    font-family: LondonTwo;
+    src: url(../fonts/LondonTwo.ttf);
+}
+
+$maxWidth: 640px;
+$easing: cubic-bezier(0.18,0.82,0.23,0.97); // cubic-bezier(0.23,1,0.32,1);
+$easing-accelerate: cubic-bezier(0.73,0.13,0.66,0.98);
+$gray: #333;
+
+::selection {
+    background-color: rgb(39, 86, 91);
+    color: #fff;
+}
+
+/* apply a natural box layout model to all elements */
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body * {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: "LondonMM", sans-serif; // LondonBetween, Quicksand, Quattrocento Sans (GoogleFonts)
+    font-size: 18px;
+    color: $gray;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+}
+
+#app {
+    height: 100%;
+}
+
+@-webkit-keyframes spinningH {
+  from { -webkit-transform: rotateX(0deg) rotateY(0deg); }
+  to{ -webkit-transform: rotateX(360deg) rotateY(360deg); }
+}
+
+@mixin bgcolor($color) {
+    &:after {
+        background-color: $color;
+    }
+}
+
+
+///////////// loader
+
+.loader {
+    $color1: rgb(39, 86, 91);
+    $color2: rgb(90, 137, 140);
+    $color3: rgb(134, 126, 89); // mostly hidden
+    $color4: rgb(218, 162, 118);
+    $color5: rgb(164, 86, 50);
+    $color6: rgb(219, 176, 96);
+
+    opacity: 1;
+    -webkit-transition: opacity 300ms linear;
+    -webkit-perspective : 1000px;
+    -webkit-perspective-origin  : 50% 50%;
+    max-width: $maxWidth;
+    margin: auto;
+    &.hide {
+        opacity: 0;
+    }
+
+    .animate {
+        -webkit-animation : spinningH 3s infinite linear;
+    }
+
+    .progress {
+        width: 36%;
+        height: 3px;
+        position: relative;
+        background-color: rgba($color1, 0.1);
+        margin: 60px 0 0 32%;
+        span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5%;
+            height: 100%;
+            background-color: rgba($color1, 0.7);
+            -webkit-transition: width 100ms ease;
+        }
+    }
+
+    #cube {
+        $size: 30px;
+        $half: $size / 2;
+        position: relative;
+        margin: 220px auto 0;
+        height: $size;
+        width: $size;
+
+        -webkit-transition: -webkit-transform 2s linear;
+        -webkit-transform-style: preserve-3d;
+        div {
+            position: absolute;
+            height: $size;
+            width: $size;
+            opacity: 1;
+            // border: 1px solid rgba(#333, 0.9);
+            -webkit-transition: border 5s linear;
+            &:after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0.9;
+                -webkit-transition: opacity 5s linear;
+            }
+
+            &:nth-child(1) {
+                -webkit-transform : translateZ($half);
+                @include bgcolor($color1);
+            }
+
+            &:nth-child(2) {
+                -webkit-transform : rotateY(90deg) translateZ($half);
+                @include bgcolor($color2);
+            }
+
+            &:nth-child(3) {
+                -webkit-transform : rotateY(180deg) translateZ($half);
+                @include bgcolor($color3);
+            }
+
+            &:nth-child(4) {
+                -webkit-transform : rotateY(-90deg) translateZ($half);
+                @include bgcolor($color4);
+            }
+
+            &:nth-child(5) {
+                -webkit-transform : rotateX(-90deg) translateZ($half) rotate(180deg);
+                @include bgcolor($color5);
+            }
+
+            &:nth-child(6)  {
+                -webkit-transform : rotateX(90deg) translateZ($half);
+                @include bgcolor($color6);
+            }
+        }
+    }
+}
+
+//////////// home
+
+@-webkit-keyframes slideDown {
+    0% { -webkit-transform: translateY(-50px); opacity: 0; }
+    50% { -webkit-transform: translateY(4px); opacity: 0.9; }
+    100% { -webkit-transform: translateY(0); opacity: 1; }
+}
+
+.home {
+    $bgcolor: transparent; // rgba(54, 54, 54, 0.1);
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    header {
+        position: absolute;
+        top: 0;
+        z-index: 1;
+        width: 100%;
+        margin: 0 auto;
+        height: 50px;
+        opacity: 0;
+        background-color: $bgcolor;
+        border-bottom: 2px solid rgba(white, 0.6);
+        -webkit-transform: translateY(-50px);
+        &:before {
+            content: "";
+            height: 15px;
+            width: 100%;
+            position: absolute;
+            top: -15px;
+            left: 0;
+            background-color: $bgcolor;
+        }
+        ul {
+            padding-right: 10px;
+            max-width: $maxWidth;
+            margin: auto;
+            opacity: 0;
+            -webkit-transition: opacity 700ms 3.6s linear;
+        }
+        li {
+            float: right;
+            padding: 14px 8px;
+            color: white;
+            font-size: 25px;
+            text-shadow: 0 0 6px rgba(0,0,0,0.1);
+            -webkit-transition: opacity 200ms linear; // hover fade for desktop
+            opacity: 1;
+        }
+    }
+
+    .hero {
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        -webkit-transition: opacity 800ms linear;
+        $width: 64px;
+        img.logo {
+            width: $width;
+            pointer-events: none;
+            position: absolute;
+            opacity: 0.98;
+            border-radius: 50%;
+            -webkit-transform: rotateX(-90deg) rotateY(-48deg) rotateZ(11deg);
+            -webkit-transform-origin: 50% 60%;
+            -webkit-transition: -webkit-transform 1.5s 400ms cubic-bezier(0.23,1,0.32,1);
+        }
+        .content {
+            position: relative;
+            width: 222px;
+            margin: 200px auto;
+            height: $width;
+        }
+    }
+
+    #title {
+        opacity: 0;
+        font-weight: 200;
+        color: white;
+        font-size: 35px;
+        top: 19px;
+        left: 85px;
+        position: absolute;
+        text-shadow: 0 0 5px rgba(0,0,0,0.1);
+        -webkit-transform: translateX(15px);
+        -webkit-transition: opacity 1.8s 1.6s linear,
+                            -webkit-transform 2.5s 1.2s $easing;
+    }
+
+    &.show {
+        header {
+            -webkit-animation: slideDown 1s 2.5s forwards;
+            ul {
+                opacity: 1;
+            }
+        }
+        .hero {
+            opacity: 1;
+        }
+        img.logo {
+            -webkit-transform: rotateX(0) rotateY(0) rotateZ(0);
+        }
+        #title {
+            opacity: 0.98;
+            -webkit-transform: translateX(0);
+        }
+        .cover {
+            width: 100%;
+            height: 100%;
+            background: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            -webkit-transform: translateY(100%);
+        }
+    }
+    &.animate-out {
+        .hero {
+            -webkit-transition: all 400ms $easing-accelerate, opacity 1500ms 150ms linear;
+            -webkit-transform: translateY(-100px);
+            opacity: 0;
+        }
+        img.logo {
+            opacity: 0;
+            -webkit-transition: opacity 400ms linear;
+        }
+        #title {
+            opacity: 0;
+            -webkit-transition: opacity 400ms linear;
+        }
+        header {
+            top: -200px;
+            -webkit-transition: top 400ms 100ms $easing-accelerate;
+        }
+        .cover {
+            -webkit-transform: translateY(0);
+            -webkit-transition: all 350ms 50ms $easing-accelerate;
+        }
+    }
+}
+
+
+
+/////////// menu
+
+@-webkit-keyframes slideUpSmallNav {
+    0% { -webkit-transform: translateY(60px); opacity: 0; } // same as nav height
+    50% { -webkit-transform: translateY(-4px); opacity: 0.9; }
+    100% { -webkit-transform: translateY(0); opacity: 1; }
+}
+
+nav {
+    $height: 60px;
+    height: $height;
+    width: 100%;
+    background: rgba(white, 0.98);
+    position: absolute;
+    text-align: center;
+    z-index: 1;
+    padding: 13px;
+    bottom: 20%;
+    border-bottom: none;
+    overflow: hidden;
+
+    /////// try these out???
+    color: white;
+    background: transparent;
+    text-shadow: 0 0 11px rgba(0,0,0,0.1);
+    ///////
+
+    &.show {
+        .pages {
+            -webkit-transition: opacity 800ms 4s linear;
+            opacity: 1;
+        }
+    }
+
+    &.top {
+        top: 0;
+        position: fixed;
+        z-index: 10;
+        height: 82px;
+        background: white;
+        opacity: 0;
+        &.show {
+            -webkit-transition: opacity 200ms linear;
+            opacity: 1;
+        }
+        .pages {
+            width: 78%;
+            position: absolute;
+            right: 0;
+            font-size: 15px;
+            top: 15px;
+            color: #333;
+            opacity: 1;
+            a {
+                &:nth-child(1) {
+                    border-right: 1px dashed rgba(#3d3d3d, 0.3);
+                }
+            }
+        }
+        .logo.show {
+            .circle {
+                -webkit-transition: -webkit-transform 1.5s 400ms cubic-bezier(0.23,1,0.32,1);
+                -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+            span {
+                -webkit-transition: opacity 100ms 400ms linear;
+                opacity: 1;
+            }
+        }
+    }
+
+    .container {
+        max-width: $maxWidth;
+        position: relative;
+        margin: auto;
+    }
+
+    .pages {
+        max-width: $maxWidth;
+        margin: auto;
+        opacity: 0;
+        a {
+            padding: 10px 0;
+            width: 48%;
+            text-transform: uppercase;
+            font-weight: 600;
+            display: inline-block;
+            opacity: 1;
+            -webkit-transition: opacity 200ms linear; // transition for desktop
+            &:nth-child(1) {
+                border-right: 1px dashed rgba(#d3d3d3, 0.3);
+            }
+        }
+    }
+    .logo {
+        position: absolute;
+        width: 36px;
+        height: 36px;
+        font-size: 13px;
+        left: 10px;
+        top: 12px;
+        .circle {
+            width: 100%;
+            height: 100%;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 50px;
+            position: relative;
+            -webkit-transform: rotateX(90deg) rotateY(45deg) rotateZ(18deg);
+            -webkit-transform-origin: 40% 40%;
+        }
+        span {
+            font-family: "LondonBetween";
+            -webkit-transform: translateZ(1000px);
+            font-size: 278%;
+            font-weight: 700;
+            color: #fff;
+            line-height: 100%;
+            letter-spacing: -0.1em;
+            position: absolute;
+            top: 34%;
+            left: 18%;
+            opacity: 0;
+            text-shadow: none;
+        }
+    }
+}
+
+
+//////////// info
+
+.about {
+    padding: 70px 15px 15px;
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+    -webkit-transition: -webkit-transform 800ms $easing, opacity 400ms 100ms linear;
+    .copy {
+        line-height: 1.5em;
+        text-align: justify;
+        font-size: 20px;
+        max-width: $maxWidth;
+        margin: auto;
+    }
+    p {
+        margin: 1em 0;
+    }
+    .headshot {
+        $size: 100px;
+        height: $size;
+        width: $size;
+        float: left;
+        border-radius: 50%;
+        overflow: hidden;
+        background: url('../img/headshot.jpg') 0 0 no-repeat;
+        margin: 5px 25px 25px 10px;
+    }
+    &.show {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        &.animate-out {
+            opacity: 0;
+            -webkit-transform: translateY(-50px);
+            -webkit-transition: -webkit-transform 350ms $easing-accelerate, opacity 200ms linear;
+        }
+    }
+}
+
+.intro {
+    margin: 40px 0;
+    span {
+        display: block;
+        width: 100%;
+        font-weight: 800;
+        text-align: center;
+        text-transform: uppercase;
+        &:nth-child(1) {
+            font-size: 50px;
+        }
+        &:nth-child(2) {
+            font-size: 57px;
+        }
+        &:nth-child(3) {
+            font-size: 38px;
+        }
+    }
+}
+
+
+///////////// Work
+
+.work {
+    padding-top: 90px;
+    max-width: $maxWidth;
+    margin: auto;
+    $projectHeight: 180px;
+    $projectWidth: 320px;
+    $projectMargin: 5px;
+    .project {
+        position: relative;
+        width: $projectWidth - (2 * $projectMargin);
+        height: $projectHeight;
+        overflow: hidden;
+        border-top: 1px solid rgba(white, 0.1);
+        cursor: pointer;
+        margin: 5px auto;
+        opacity: 0;
+        -webkit-transform: translateY(20px);
+        -webkit-transition: -webkit-transform 400ms $easing, opacity 400ms linear;
+        &.show {
+            opacity: 1;
+            -webkit-transform: translateY(0);
+            &.animate-out {
+                opacity: 0;
+                -webkit-transform: translateY(-50px);
+                -webkit-transition: -webkit-transform 350ms $easing-accelerate, opacity 200ms linear;
+            }
+        }
+    }
+    .project-row {
+        width: 100%;
+        height: 100%;
+        font-family: "LondonBetween", sans-serif;
+        &:after {
+            $padding: 2px;
+            $borderWidth: 1px;
+            content: "";
+            width: $projectWidth - (2 * ($padding + $borderWidth + $projectMargin));
+            height: $projectHeight - (2 * ($padding + $borderWidth)) - 1px;
+            border: $borderWidth solid rgba(white, 0.4);
+            position: absolute;
+            top: $padding;
+            left: $padding;
+        }
+    }
+    .screenshot {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: 50% 89%;
+    }
+    .info {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: 68px;
+        left: 0;
+        z-index: 1;
+        h2 {
+            display: inline-block;
+            color: white;
+            text-transform: uppercase;
+            font-weight: 900;
+            text-shadow: 0 0 10px rgba(0,0,0,0.3);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border: 3px solid white;
+            padding: 10px 15px;
+            font-size: 24px;
+            span {
+                position: relative;
+                top: 2px;
+            }
+        }
+    }
+    .body {
+        display: none;
+    }
+    &.animate-out {
+        opacity: 0;
+        -webkit-transition: opacity 250ms 200ms linear;
+    }
+}
+
+@media (min-width: 641px) {
+    nav {
+        $height: 90px;
+        height: $height;
+        font-size: 35px;
+        padding: 20px;
+        bottom: 10%;
+        .pages a {
+            opacity: 0.8;
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+    .home {
+        header li {
+            opacity: 0.82;
+            &:hover {
+                opacity: 1;
+            }
+        }
+        .hero .content {
+            width: 310px;
+            height: 100px;
+            img.logo {
+                width: 100px;
+            }
+            #title {
+                font-size: 50px;
+                top: 30px;
+                left: 125px;
+            }
+        }
+    }
+    .about {
+        .intro {
+            display: none;
+        }
+        .copy {
+            margin-top: 50px;
+        }
+    }
+    .work .project {
+        float: left;
+        margin: 5px;
+    }
+}
