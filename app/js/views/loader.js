@@ -20,7 +20,7 @@ var LoaderView = BaseView.extend({
 
     postRender: function() {
         _.delay(function() {
-            this.$el.removeClass('hide');
+            this.el.classList.remove('hide');
             _.delay(this.loader.start.bind(this.loader), 400);
         }.bind(this), 100);
     },
@@ -31,9 +31,8 @@ var LoaderView = BaseView.extend({
     },
 
     setProgress: function(perc) {
-        this.$('.progress span').css({
-            'width': perc + '%'
-        });
+        var span = this.el.querySelector('.progress span');
+        span.style.width = perc + '%';
     },
 
     loadProjectAssets: function() {
@@ -43,7 +42,7 @@ var LoaderView = BaseView.extend({
 
     onComplete: function() {
         this.setProgress(100);
-        this.$el.addClass('hide');
+        this.el.classList.add('hide');
         _.delay(function() {
             this.remove();
             Pubsub.trigger('app:ready');

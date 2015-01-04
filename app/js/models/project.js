@@ -10,12 +10,13 @@ var Project = Backbone.Model.extend({
         url: ''
     },
 
-    parse: function(res) {
-        res.published = !!res.published;
-        var imgPath = ENV === 'dev' ? 'img/projects/' :
-                                      'https://s3.amazonaws.com/tbaldw.in-project-imgs/';
-        res.image = res.image ? imgPath + res.image : null;
-        return res;
+    initialize: function() {
+        var img = 'img/projects/' + this.get('image');
+        var published = !!this.get('published');
+        this.set({
+            'image': img,
+            'published': published
+        });
     },
 
     bodyPreview: function() {

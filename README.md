@@ -1,10 +1,10 @@
-tbaldw.in-site
-==============
+tbaldw.in
+=========
 
-This is (most of) the source for my personal website.
+This is (most of) the code for [tbaldw.in](http://tbaldw.in).
 
-Make sure you run `npm install` from the root.
+Make sure you run `cd app && npm install`. Also: `gem install compass`.
 
-Then, run a local server from the `app` directory: `python -m SimpleHTTPServer 8080`, and point your browser to `localhost:8080`.
+Then, run the app from the `app` directory: `python -m SimpleHTTPServer 5000`, and point your browser to `localhost:5000`.
 
-If you mess around with any of the javascript or sass, make sure you run `watchify app/js/app.js -o app/js/main.js -v` from the root and `compass watch` from the `app` directory.
+For development, just run `node_modules/gulp/bin/gulp.js watch` from the `app` directory.

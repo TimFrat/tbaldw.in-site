@@ -2,10 +2,15 @@ var _ = require('underscore');
 var BaseView = require('./base');
 var Pubsub = require('../lib/pubsub');
 var AppState = require('../lib/app_state');
+var router = require('../lib/router');
 
 var MenuView = BaseView.extend({
-	tagName: 'nav',
-	template: require('./menu.hbs'),
+    tagName: 'nav',
+    template: require('./menu.hbs'),
+
+    events: {
+        'click .route': 'nav'
+    },
 
     initialize: function() {
         this.listenTo(Pubsub, 'menu:bottom', this.move.bind(this, 'bottom'));
@@ -20,24 +25,35 @@ var MenuView = BaseView.extend({
     },
 
     animateIn: function() {
-        this.$el.removeClass('show');
-        setTimeout(this.$el.addClass.bind(this.$el, 'show'), 50);
+        var list = this.el.classList;
+        list.remove('show');
+        setTimeout(list.add.bind(list, 'show'), 50);
     },
 
-    move: function(dir) {
-        this.$el.removeClass('show');
-        this.$el.toggleClass('top', dir === 'top');
-        if (dir === 'top') {
+    move: function(position) {
+        if (this.curPosition === position) {
+            return;
+        }
+        var list = this.el.classList;
+        list.remove('show');
+        list.toggle('top', position === 'top');
+        this.curPosition = position;
+        if (position === 'top') {
             setTimeout(function() {
-                this.$el.addClass('show');
+                list.add('show');
                 this.showLogo();
             }.bind(this), 450);
         }
     },
 
     showLogo: function() {
-        var $logo = this.$('.logo');
-        _.delay($logo.addClass.bind($logo, 'show'), 50);
+        var list = this.el.querySelector('.logo').classList;
+        _.delay(list.add.bind(list, 'show'), 50);
+    },
+
+    nav: function(e) {
+        var url = e.currentTarget.getAttribute('data-route');
+        router.navigate(url, {'trigger': true});
     }
 });
 

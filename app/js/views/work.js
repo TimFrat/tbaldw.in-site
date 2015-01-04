@@ -16,12 +16,11 @@ var WorkView = BaseView.extend({
     },
 
     addAll: function(projects) {
-        var els = projects.map(function(project) {
+        projects.each(function(project) {
             var view = new ProjectView({'model' : project});
             this.subviews.push(view);
-            return view.render().el;
+            this.el.appendChild(view.render().el);
         }.bind(this));
-        this.$el.append(els);
     },
 
     animateIn: function() {
@@ -35,7 +34,7 @@ var WorkView = BaseView.extend({
         _.each(this.subviews, function(subview, i) {
             subview.trigger('animate-out', i);
         });
-        this.$el.addClass('animate-out');
+        this.el.classList.add('animate-out');
     },
 
     remove: function() {

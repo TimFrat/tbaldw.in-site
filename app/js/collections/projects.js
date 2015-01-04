@@ -2,8 +2,6 @@ var Backbone = require('backbone');
 var Project = require('../models/project');
 
 var Projects = Backbone.Collection.extend({
-    url: 'projects.json',
-
     model: Project,
 
     published: function() {

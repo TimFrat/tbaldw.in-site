@@ -4,27 +4,30 @@ var HomeView = require('../views/home');
 var AboutView = require('../views/about');
 var WorkView = require('../views/work');
 
+function _navigate(view, menuPosition) {
+    Pubsub.trigger('navigate', view);
+    Pubsub.trigger('menu:' + menuPosition);
+}
+
 var Router = Backbone.Router.extend({
     routes: {
         '' : 'index',
-        'about' : 'about',
-        'work' : 'work'
+        'info' : 'info',
+        'work' : 'work',
+        'about': 'info'
     },
 
     index: function() {
-        Pubsub.trigger('navigate', new HomeView());
-        Pubsub.trigger('menu:bottom'); // just for now
+        _navigate(new HomeView(), 'bottom');
     },
 
-    about: function() {
-        Pubsub.trigger('navigate', new AboutView());
-        Pubsub.trigger('menu:top'); // just for now
+    info: function() {
+        _navigate(new AboutView(), 'top');
     },
 
     work: function() {
-        Pubsub.trigger('navigate', new WorkView());
-        Pubsub.trigger('menu:top'); // just for now
+        _navigate(new WorkView(), 'top');
     }
 });
 
-module.exports = Router;
+module.exports = new Router();

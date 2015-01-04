@@ -4,15 +4,15 @@ var aboutTemplate = require('./about.hbs');
 var AboutView = BaseView.extend({
     tagName: 'section',
     className: 'about',
-	template: aboutTemplate,
+    template: aboutTemplate,
 
     animateIn: function() {
         window.scroll(0, 0);
-        this.$el.addClass('show');
+        this.el.classList.add('show');
     },
 
     animateOut: function() {
-        this.$el.addClass('animate-out');
+        this.el.classList.add('animate-out');
     },
 
     remove: function() {
